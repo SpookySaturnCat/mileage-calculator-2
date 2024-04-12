@@ -3,9 +3,9 @@ package lab10;
 /**
  * File: csci1302/ch16/MileageCalculator.java
  * Package: ch16
- * @author Seraphina Morrison
+ * @author Seraphina Morrison, Phillip Mejia
  * Created on: Apr 12, 2024
- * Description:  
+ * Description: Replaced Radio Button with combo box 
  */
 
 import javafx.application.Application;
@@ -52,8 +52,6 @@ public class MileageCalculatorNoConversion extends Application {
 	ComboBox<String> cmb1 =	new ComboBox<>(items);
 	Label lblOut = new Label("Combo Label");
     
-	//private RadioButton rbMPG = new RadioButton(defaultResult);
-	//private RadioButton rbKPL = new RadioButton(altResult);
     private ToggleGroup tgConv = new ToggleGroup();
     
     private GridPane mainPane = new GridPane();
@@ -89,8 +87,7 @@ public class MileageCalculatorNoConversion extends Application {
         tfDistance.setOnAction(e -> calcMileage());
         tfCapacity.setOnAction(e -> calcMileage());
         tfResult.setOnAction(e -> calcMileage());
-        cmb1.setOnAction(e -> changeLabels());
-        //rbMPG.setOnAction(e -> changeLabels());     
+        cmb1.setOnAction(e -> changeLabels());     
         btnReset.setOnAction(e -> resetForm());
         
         // create a scene and place it in the stage
