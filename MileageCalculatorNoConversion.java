@@ -48,7 +48,7 @@ public class MileageCalculatorNoConversion extends Application {
     private TextField tfResult = new TextField(defaultCalc);
     
     // Combo box replacement
-	ObservableList<String> items = FXCollections.observableArrayList("MPG", "L/100KM");
+	ObservableList<String> items = FXCollections.observableArrayList(defaultResult, altResult);
 	ComboBox<String> cmb1 =	new ComboBox<>(items);
 	Label lblOut = new Label("Combo Label");
     
@@ -59,16 +59,12 @@ public class MileageCalculatorNoConversion extends Application {
     private GridPane mainPane = new GridPane();
     
     public void start(Stage primaryStage) {   	
-    	// set toggle group for RadioButtons
-    	//rbMPG.setToggleGroup(tgConv);
-    	//rbKPL.setToggleGroup(tgConv);
     	
         // set preferences for UI components
         tfDistance.setMaxWidth(txtWidth);
         tfCapacity.setMaxWidth(txtWidth);
         tfResult.setMaxWidth(txtWidth);
         tfResult.setEditable(false);
-        //rbMPG.setSelected(true);
         
         // create a main grid pane to hold items
         mainPane.setPadding(new Insets(10.0));
@@ -93,7 +89,7 @@ public class MileageCalculatorNoConversion extends Application {
         tfDistance.setOnAction(e -> calcMileage());
         tfCapacity.setOnAction(e -> calcMileage());
         tfResult.setOnAction(e -> calcMileage());
-        //rbKPL.setOnAction(e -> changeLabels());
+        cmb1.setOnAction(e -> changeLabels());
         //rbMPG.setOnAction(e -> changeLabels());     
         btnReset.setOnAction(e -> resetForm());
         
@@ -116,7 +112,7 @@ public class MileageCalculatorNoConversion extends Application {
      */
     private void changeLabels() {
     	// distinguish between L/100KM and MPG
-    	if (rbKPL.isSelected() && lblCapacity.getText().equals(defaultCapacity)) {
+    	if (cmb1.getValue().equals(altResult) && lblCapacity.getText().equals(defaultCapacity)) {
         	// update labels
         	lblCapacity.setText(altCapacity);
         	lblDistance.setText(altMileage);
@@ -145,7 +141,7 @@ public class MileageCalculatorNoConversion extends Application {
 
         // check for type of calculation
         double result = 0.0;
-        if (rbKPL.isSelected()) {
+        if (cmb1.getValue().equals(altCapacity)) {
         	// liters / 100KM
         	result = (distance != 0) ? capacity/(distance/100.0) : 0;
         } else {
@@ -162,7 +158,7 @@ public class MileageCalculatorNoConversion extends Application {
      */
     private void resetForm() {
         // reset all form fields
-    	rbMPG.setSelected(true);
+    	cmb1.setValue(null);
         tfDistance.setText(defaultEntry);
         tfCapacity.setText(defaultEntry);
         tfResult.setText(defaultCalc);
